@@ -1,11 +1,11 @@
 - hosts: localhost
   tasks:
-    - name: Run the below script
+    - name: Make Passbolt Mysql Backup
       local_action: command sh files/mysql-passbolt-backup.sh
 
     - name: Make a cron to run every 6 hours
       cron:
-        name: docker_database_backup
+        name: Passbolt Database Backup Every 6 hours
         minute: '0'
         hour: '*/6'
         job: 'ansible-playbook /home/wesley/Ansible/passbolt-backup/passbolt-backup.yml >/dev/null 2>&1'
