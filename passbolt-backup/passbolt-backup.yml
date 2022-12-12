@@ -2,6 +2,9 @@
   tasks:
     - name: Make Passbolt Mysql Backup
       local_action: command sh files/mysql-passbolt-backup.sh
+    
+    - name: Passbolt keys backup
+      local_action: command sh files/backup.sh
 
     - name: Make a cron to run every 6 hours
       cron:
