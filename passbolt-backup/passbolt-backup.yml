@@ -1,0 +1,17 @@
+- hosts: localhost
+  tasks:
+    - name: Run the below script
+      local_action: command sh files/mysql-passbolt-backup.sh
+
+ - name: send completion alert
+   include_tasks: playbooks/send_completion_alert.yml
+   tags: always
+   when:
+      - task_failed is not defined
+
+ - name: send failure alert
+   include_tasks: playbooks/send_failure_alert.yml
+   tags: always
+   when:
+      - task_failed is defined
+      - task_failed == true
