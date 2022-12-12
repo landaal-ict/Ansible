@@ -3,6 +3,14 @@
     - name: Run the below script
       local_action: command sh files/mysql-passbolt-backup.sh
 
+    - name: Make a cron to run every 6 hours
+      cron:
+        name: docker_database_backup
+        minute: '0'
+        hour: '*/6'
+        job: 'ansible-playbook /home/wesley/Ansible/passbolt-backup/passbolt-backup.yml >/dev/null 2>&1'
+        state: present
+
     - name: send completion alert
       include_tasks: playbooks/send_comp_alert.yml
       tags: always
